@@ -66,6 +66,11 @@ if __name__ == "__main__":
     cantidades = [25, 50, 100, 150, 200]
     intervalos = [10, 5, 1]
 
+    # -------------------------
+    # Parte 1: intervalos base
+    # -------------------------
+    plt.figure()
+
     for intervalo in intervalos:
 
         promedios = []
@@ -82,5 +87,49 @@ if __name__ == "__main__":
 
     plt.xlabel("Numero de procesos")
     plt.ylabel("Tiempo promedio")
+    plt.title("Tiempo promedio vs Numero de procesos")
+    plt.legend()
+    plt.show()
+
+    # -------------------------
+    # Parte 2: estrategias (intervalo = 1)
+    # -------------------------
+    print("\n--- Estrategias con intervalo = 1 ---")
+
+    plt.figure()
+
+    # RAM 200
+    promedios_ram = []
+    print("\nMemoria 200")
+    for n in cantidades:
+        prom, _ = simular(n, 1, memoria=200)
+        promedios_ram.append(prom)
+        print(n, prom)
+
+    plt.plot(cantidades, promedios_ram, label="RAM 200")
+
+    # CPU mas rapido
+    promedios_cpu = []
+    print("\nCPU mas rapido (6 instrucciones)")
+    for n in cantidades:
+        prom, _ = simular(n, 1, velocidad_cpu=6)
+        promedios_cpu.append(prom)
+        print(n, prom)
+
+    plt.plot(cantidades, promedios_cpu, label="CPU mas rapido")
+
+    # 2 CPUs
+    promedios_2cpu = []
+    print("\n2 CPUs")
+    for n in cantidades:
+        prom, _ = simular(n, 1, cpus=2)
+        promedios_2cpu.append(prom)
+        print(n, prom)
+
+    plt.plot(cantidades, promedios_2cpu, label="2 CPUs")
+
+    plt.xlabel("Numero de procesos")
+    plt.ylabel("Tiempo promedio")
+    plt.title("Comparacion de estrategias (Intervalo 1)")
     plt.legend()
     plt.show()
